@@ -80,15 +80,5 @@
       "<rootDir>/(build|docs|node_modules)/"
     ],
     "testEnvironment": "node"
-  },
-  "babel": {
-    "presets": [
-      "react-app",
-      "stage-0",
-      ["es2015", { "loose": true }]
-    ],
-    "plugins": [
-      "react-hot-loader/babel"
-    ]
   }
 }
