@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import Root from '../root';
+import Home from '../home';
 
 import configureStore from '../../stores/configureStore';
 
@@ -19,7 +20,9 @@ export default class Routes extends Component {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Route path="/" component={Root} />
+          <Route path="/" component={Root}>
+            <Route path="home" component={Home} />
+          </Route>
         </Router>
       </Provider>
     );
