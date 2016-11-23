@@ -1,3 +1,5 @@
+/* eslint global-require: 0 */
+
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -13,7 +15,7 @@ render(
   <AppContainer>
     <Routes />
   </AppContainer>,
-  rootEl
+  rootEl,
 );
 
 if (module.hot) {
@@ -23,7 +25,7 @@ if (module.hot) {
       <AppContainer>
         <NextRoutes />
       </AppContainer>,
-      rootEl
+      rootEl,
     );
   });
 }

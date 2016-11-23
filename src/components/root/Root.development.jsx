@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import DevTools from '../development/DevTools';
+import DevTools from '../development/DevTools.jsx';
 import App from '../app';
 
 export default class Root extends Component {
