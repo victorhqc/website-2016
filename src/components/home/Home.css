@@ -1,2 +1,22 @@
 .Home {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.Home-body, .Home-logo {
+  margin: 0 auto;
+  width: 50%;
+}
+
+.Home-body h1, .Home-logo h1 {
+  text-align: left;
+}
+
+.Home-body h1 {
+  font-weight: normal;
+}
+
+.Home-body h1 small {
+  font-family: 'Sacramento';
 }
