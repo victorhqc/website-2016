@@ -1,19 +1,27 @@
 .Home {
-  position: absolute;
   text-align: center;
   width: 100%;
+  display: table;
 }
 
-.Home-body, .Home-logo {
+.Home-description-container {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.Home-description {
   margin: 0 auto;
   width: 50%;
+  text-align: center;
 }
 
-.Home-body h1, .Home-logo h1 {
-  text-align: left;
+.Home-logo h1 {
+  font-size: 5em;
+  margin-bottom: 0;
 }
 
 .Home-body h1 {
+  font-size: 2.5em;
   font-weight: normal;
 }
 

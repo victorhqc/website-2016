@@ -40,16 +40,20 @@ export default class Home extends Component {
 
     return (
       <div className="Home" style={style}>
-        <div className="Home-logo">
-          <h1>VQ</h1>
-        </div>
-        <div className="Home-body">
-          <h1>
-            Victor Quiroz Castro <br />
-            <small>
-              FullStack JavaScript  Developer
-            </small>
-          </h1>
+        <div className="Home-description-container">
+          <div className="Home-description">
+            <div className="Home-logo">
+              <h1>VQ</h1>
+            </div>
+            <div className="Home-body">
+              <h1>
+                Victor Quiroz Castro <br />
+                <small>
+                  FullStack JavaScript  Developer
+                </small>
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
     );
