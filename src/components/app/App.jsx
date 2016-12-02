@@ -6,17 +6,13 @@ class App extends Component {
   render() {
     const { children } = this.props;
 
-    console.log('children', children);
-
     return (
       <div className="App">
-        <header className="App-header">
-        </header>
+        <header className="App-header" />
         <div className="App-body">
           { children }
         </div>
-        <footer className="App-footer">
-        </footer>
+        <footer className="App-footer" />
       </div>
     );
   }

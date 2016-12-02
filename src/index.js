@@ -32,7 +32,7 @@ render(
 );
 
 if (module.hot) {
-  module.hot.accept('./components/root', () => {
+  module.hot.accept('./containers/root', () => {
     const NextRoot = require('./containers/root').default;
     render(
       <AppContainer>
