@@ -1,0 +1,9 @@
+.Slide {
+  width: 100%;
+  position: absolute;
+}
+
+.Slide:nth-child(odd) {
+  background-color: #fff;
+  color: #222;
+}
