@@ -3,11 +3,11 @@
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { persistState } from 'redux-devtools';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { browserHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
-import DevTools from '../components/development/DevTools.jsx';
 
 const loggerMiddleware = createLogger();
 const historyMiddleware = routerMiddleware(browserHistory);
@@ -19,15 +19,13 @@ function getDebugSessionKey() {
   return (matches && matches.length > 0) ? matches[1] : null;
 }
 
-const enhancer = compose(
+const enhancer = composeWithDevTools(
   // Middleware you want to use in development:
   applyMiddleware(
     thunkMiddleware,
     loggerMiddleware,
     historyMiddleware,
   ),
-  // Required! Enable Redux DevTools with the monitors you chose
-  DevTools.instrument(),
   // Optional. Lets you write ?debug_session=<key> in address bar to persist debug sessions
   persistState(getDebugSessionKey()),
 );
