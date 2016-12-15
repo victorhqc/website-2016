@@ -53,10 +53,6 @@ export default class Home extends Component {
   }
 
   updateElements() {
-    const { scrollY } = this.state;
-
-    // console.log('scroll', scrollY);
-
     this.setState({
       ticking: false,
     });
@@ -83,10 +79,20 @@ export default class Home extends Component {
       height,
     };
 
-    const slides = renderSlides(style);
+    const halfHeight = height / 2;
+    const nextTransform = height - scrollY;
+
+    console.log({ nextTransform, height, scrollY });
 
     const slideStyle = {
-      height: typeof height === 'number' ? height * (slides.length + 1) : height,
+      height,
+      transform: `translate3d(0, ${nextTransform < halfHeight ? halfHeight : nextTransform}px, 0)`,
+    };
+
+    const slides = renderSlides(slideStyle);
+
+    const slideContainerStyle = {
+      height: typeof height === 'number' ? height * (slides.length) : height,
     };
 
     return (
@@ -108,7 +114,7 @@ export default class Home extends Component {
             </div>
           </div>
         </div>
-        <div className="Home-slides" style={slideStyle}>
+        <div className="Home-slides" style={slideContainerStyle}>
           { slides }
         </div>
       </div>
