@@ -53,7 +53,7 @@
     "webpack-manifest-plugin": "1.1.0"
   },
   "dependencies": {
-    "autoprefixer": "6.6.1",
+    "autoprefixer": "6.7.1",
     "axios": "^0.15.2",
     "object-assign": "4.1.1",
     "promise": "7.1.1",
