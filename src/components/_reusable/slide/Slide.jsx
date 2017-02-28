@@ -1,14 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import './Slide.css';
 
-export default class Slide extends Component {
+const renderChildren = (children, filteredProps) => {
+  const parsedChildren = Array.isArray(children) ? children : [children];
 
+  return parsedChildren.reduce((accumulated, child, index) =>
+    React.cloneElement(
+      child,
+      {
+        ...filteredProps,
+        key: `slide-children-${index}`,
+      },
+    ), []);
+};
+
+export default class Slide extends Component {
   render() {
-    const { children, style } = this.props;
+    const { children, style, ...filteredProps } = this.props;
 
     return (
       <div className="Slide" style={style}>
-        { children }
+        { renderChildren(children, filteredProps) }
       </div>
     );
   }

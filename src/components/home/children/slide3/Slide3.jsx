@@ -8,7 +8,7 @@ export default class Slide1 extends Component {
 
     return (
       <Slide style={style}>
-        <div className="slide-1">
+        <div className="slide-3">
           <h1>Slide 3</h1>
           <p>Slide No. 3!</p>
         </div>

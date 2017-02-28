@@ -33,7 +33,8 @@ const renderSlides = (state) => {
     const zIndex = slides.length - index;
     const nextTransform = (totalHeight - (height * index)) - scrollY;
 
-    const style = nextTransform / zIndex < halfHeight
+    const isApplicableTransform = nextTransform / zIndex < halfHeight;
+    const style = isApplicableTransform
       ? {
         height,
         zIndex,
@@ -53,6 +54,9 @@ const renderSlides = (state) => {
         {
           key: `slide-${index}`,
           style,
+          nextTransform,
+          isApplicableTransform,
+          scrollY,
         },
       ),
     ];
