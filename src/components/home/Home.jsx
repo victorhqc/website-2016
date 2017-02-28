@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Home.css';
 
 import Slide1 from './children/slide1';
+import Slide2 from './children/slide2';
+import Slide3 from './children/slide3';
 
 const animationFrame = callback => setTimeout(callback, 1000 / 60);
 
@@ -12,9 +14,50 @@ const requestAnimFrame = () =>
   window.msRequestAnimationFrame ||
   animationFrame;
 
-const renderSlides = style => [
-  <Slide1 style={style} key="slide-1"/>,
+const slides = [
+  <Slide3 />,
+  <Slide2 />,
+  <Slide1 />,
 ];
+
+const renderSlides = (state) => {
+  const {
+    height,
+    totalHeight,
+    scrollY,
+  } = state;
+
+  const halfHeight = height / 2;
+
+  return slides.reduce((visible, slide, index) => {
+    const zIndex = slides.length - index;
+    const nextTransform = (totalHeight - (height * index)) - scrollY;
+
+    const style = nextTransform / zIndex < halfHeight
+      ? {
+        height,
+        zIndex,
+        position: 'fixed',
+        top: 0,
+      }
+      : {
+        height,
+        zIndex,
+        transform: `translate3d(0, ${nextTransform}px, 0)`,
+      };
+
+    return [
+      ...visible,
+      React.cloneElement(
+        slide,
+        {
+          key: `slide-${index}`,
+          style,
+        },
+      ),
+    ];
+  }, []);
+};
 
 export default class Home extends Component {
 
@@ -49,7 +92,10 @@ export default class Home extends Component {
   adjustSize() {
     const height = window.innerHeight;
 
-    this.setState({ height });
+    this.setState({
+      height,
+      totalHeight: typeof height === 'number' ? height * slides.length : height,
+    });
   }
 
   updateElements() {
@@ -59,9 +105,16 @@ export default class Home extends Component {
   }
 
   onScroll() {
-    const { ticking } = this.state;
+    const {
+      ticking,
+      totalHeight,
+    } = this.state;
 
     if (ticking) { return; }
+
+    if (window.scrollY >= totalHeight / 2) {
+      window.scrollTo(0, totalHeight / 2);
+    }
 
 
     this.setState({
@@ -73,26 +126,19 @@ export default class Home extends Component {
   }
 
   render() {
-    const { height } = this.state;
+    const {
+      height,
+      totalHeight,
+    } = this.state;
 
     const style = {
       height,
     };
 
-    const halfHeight = height / 2;
-    const nextTransform = height - scrollY;
-
-    console.log({ nextTransform, height, scrollY });
-
-    const slideStyle = {
-      height,
-      transform: `translate3d(0, ${nextTransform < halfHeight ? halfHeight : nextTransform}px, 0)`,
-    };
-
-    const slides = renderSlides(slideStyle);
+    const renderedSlides = renderSlides(this.state);
 
     const slideContainerStyle = {
-      height: typeof height === 'number' ? height * (slides.length) : height,
+      height: totalHeight - height,
     };
 
     return (
@@ -101,13 +147,16 @@ export default class Home extends Component {
           <div className="Home-description-container">
             <div className="Home-description">
               <div className="Home-logo">
-                <h1>VQ</h1>
+                <h1>Generic</h1>
+                {/* <h1>VQ</h1> */}
               </div>
               <div className="Home-body">
                 <h1>
-                  Victor Quiroz Castro <br />
+                  Some Generic page <br />
+                  {/* Victor Quiroz Castro <br /> */}
                   <small>
-                    FullStack JavaScript  Developer
+                    Some generic subtitle
+                    {/* FullStack JavaScript  Developer */}
                   </small>
                 </h1>
               </div>
@@ -115,7 +164,7 @@ export default class Home extends Component {
           </div>
         </div>
         <div className="Home-slides" style={slideContainerStyle}>
-          { slides }
+          { renderedSlides }
         </div>
       </div>
     );
