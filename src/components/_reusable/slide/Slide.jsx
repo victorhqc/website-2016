@@ -1,5 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+
 import './Slide.css';
+
+import {
+  calculateBlur,
+} from './helpers';
 
 const renderChildren = (children, filteredProps) => {
   const parsedChildren = Array.isArray(children) ? children : [children];
@@ -16,11 +21,25 @@ const renderChildren = (children, filteredProps) => {
 
 export default class Slide extends Component {
   render() {
-    const { children, style, ...filteredProps } = this.props;
+    const {
+      children,
+      style,
+      backgroundImage,
+      ...filteredProps
+    } = this.props;
+
+    const filter = calculateBlur({ ...filteredProps });
+    const backgroundStyle = {
+      backgroundImage: `url(${backgroundImage})`,
+      filter,
+    };
 
     return (
       <div className="Slide" style={style}>
-        { renderChildren(children, filteredProps) }
+        <div className="slideBody">
+          <div className="slideBackground" style={backgroundStyle} />
+          { renderChildren(children, filteredProps) }
+        </div>
       </div>
     );
   }
@@ -28,6 +47,7 @@ export default class Slide extends Component {
 
 Slide.propTypes = {
   style: PropTypes.object,
+  backgroundImage: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.array,

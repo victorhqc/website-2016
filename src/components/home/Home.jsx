@@ -7,7 +7,11 @@ import Slide3 from './children/slide3';
 
 import {
   renderSlides,
-} from './helpers';
+} from '../_reusable/slide/helpers';
+
+import background1 from './assets/IMG_20170209_153230.jpg';
+import background2 from './assets/IMG_20170212_125335.jpg';
+import background3 from './assets/IMG_20161204_151738.jpg';
 
 const animationFrame = callback => setTimeout(callback, 1000 / 60);
 
@@ -19,9 +23,9 @@ const requestAnimFrame = () =>
   animationFrame;
 
 const slides = [
-  <Slide3 />,
-  <Slide2 />,
-  <Slide1 />,
+  <Slide3 backgroundImage={background3} />,
+  <Slide2 backgroundImage={background2} />,
+  <Slide1 backgroundImage={background1} />,
 ];
 
 export default class Home extends Component {
@@ -78,7 +82,6 @@ export default class Home extends Component {
     if (ticking) { return; }
 
     if (window.scrollY >= totalHeight) {
-      console.log('PIU!');
       window.scrollTo(0, totalHeight);
     }
 

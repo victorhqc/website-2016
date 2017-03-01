@@ -1,13 +1,13 @@
 /* eslint import/prefer-default-export: 0 */
 import React from 'react';
 
-// const easeInOutCubic = (value) => {
-//   if (value < 0.5) {
-//     return 4 * value * value * value;
-//   }
-//
-//   return ((value - 1) * ((2 * value) - 2) * ((2 * value) - 2)) + 1;
-// };
+const easeInOutCubic = (value) => {
+  if (value < 0.5) {
+    return 4 * value * value * value;
+  }
+
+  return ((value - 1) * ((2 * value) - 2) * ((2 * value) - 2)) + 1;
+};
 //
 // const easeInOutQuart = (value) => {
 //   if (value < 0.5) {
@@ -17,13 +17,13 @@ import React from 'react';
 //   return 1 - (8 * (value - 1) * ((value - 1) ** 3));
 // };
 //
-const easeInOutQuint = (value) => {
-  if (value < 0.5) {
-    return 16 * (value ** 5);
-  }
-
-  return 1 + (16 * (value - 1) * ((value - 1) ** 4));
-};
+// const easeInOutQuint = (value) => {
+//   if (value < 0.5) {
+//     return 16 * (value ** 5);
+//   }
+//
+//   return 1 + (16 * (value - 1) * ((value - 1) ** 4));
+// };
 
 
 export const calculateBlur = (props) => {
@@ -40,11 +40,15 @@ export const calculateBlur = (props) => {
     return '';
   }
 
-  const linearCalculation = (scroll / height);
+  const linearCalculation = (scroll / height) - 0.5; // Offset by half
 
-  const easedValue = easeInOutQuint(linearCalculation);
+  if (linearCalculation < 0) {
+    return '';
+  }
 
-  return `blur(${easedValue * 10}px)`;
+  const easedValue = easeInOutCubic(linearCalculation);
+
+  return `blur(${easedValue * 20}px)`;
 };
 
 
@@ -55,9 +59,7 @@ export const calculateStyle = ({
   scroll,
 }) => {
   if (scroll <= 0) {
-    return {
-      display: 'none',
-    };
+    return {};
   }
 
   if (scroll >= height) {
