@@ -30,7 +30,12 @@ export const calculateBlur = (props) => {
   const {
     height,
     scroll,
+    zIndex,
   } = props;
+
+  if (zIndex === 1) {
+
+  }
 
   if (scroll >= height) {
     return 'blur(10px)';
@@ -55,13 +60,19 @@ export const calculateBlur = (props) => {
 export const calculateStyle = ({
   zIndex,
   height,
-  nextTransform,
   scroll,
 }) => {
-  if (scroll <= 0) {
-    return {};
-  }
+  // if (scroll <= 0) {
+  //   return {
+  //     height,
+  //     zIndex,
+  //     transform: `translate3d(0, ${height}px, 0)`,
+  //   };
+  // }
 
+  if (zIndex === 2) {
+    // console.log({ scroll, height });
+  }
   if (scroll >= height) {
     return {
       height,
@@ -72,12 +83,39 @@ export const calculateStyle = ({
   }
 
   return {
-    height,
     zIndex,
-    transform: `translate3d(0, ${nextTransform}px, 0)`,
+    height,
   };
+  //
+  // return {
+  //   height,
+  //   zIndex,
+  //   transform: `translate3d(0, ${nextTransform}px, 0)`,
+  // };
 };
 
+
+export const generatePrevSlices = (state) => {
+  const {
+    height,
+    scrollY,
+  } = state;
+
+  const slidesToGenerate = Math.floor(scrollY / height) + 1;
+  const slides = [];
+
+  for (let i = 0; i < slidesToGenerate; i += 1) {
+    slides.push((
+      <div
+        style={{
+          height,
+        }}
+        key={`prev-slide-${i}`} />
+    ));
+  }
+
+  return slides;
+};
 
 export const renderSlides = (state, slides) => {
   const {
@@ -85,19 +123,15 @@ export const renderSlides = (state, slides) => {
     scrollY,
   } = state;
 
-  const halfHeight = height / 2;
-
   return slides.reduce((visible, slide, index) => {
-    const zIndex = slides.length - index;
+    const zIndex = index + 1;
     const nextTransform = height * (zIndex - 1);
 
     const scroll = scrollY - nextTransform;
 
-
     const style = calculateStyle({
       zIndex,
       height,
-      halfHeight,
       nextTransform,
       scroll,
     });
@@ -110,12 +144,11 @@ export const renderSlides = (state, slides) => {
           key: `slide-${index}`,
           style,
           nextTransform,
-          halfHeight,
           scroll,
           zIndex,
           ...state,
         },
       ),
     ];
-  }, []);
+  }, generatePrevSlices(state));
 };

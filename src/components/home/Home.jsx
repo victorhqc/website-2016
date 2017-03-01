@@ -23,9 +23,9 @@ const requestAnimFrame = () =>
   animationFrame;
 
 const slides = [
-  <Slide3 backgroundImage={background3} />,
-  <Slide2 backgroundImage={background2} />,
   <Slide1 backgroundImage={background1} />,
+  <Slide2 backgroundImage={background2} />,
+  <Slide3 backgroundImage={background3} />,
 ];
 
 export default class Home extends Component {
