@@ -59,7 +59,7 @@ export default class Home extends Component {
 
     this.setState({
       height,
-      totalHeight: typeof height === 'number' ? height * slides.length : height,
+      totalHeight: typeof height === 'number' ? (slides.length * height) : 0,
     });
   }
 
@@ -77,8 +77,9 @@ export default class Home extends Component {
 
     if (ticking) { return; }
 
-    if (window.scrollY >= totalHeight / 2) {
-      window.scrollTo(0, totalHeight / 2);
+    if (window.scrollY >= totalHeight) {
+      console.log('PIU!');
+      window.scrollTo(0, totalHeight);
     }
 
 
@@ -96,18 +97,14 @@ export default class Home extends Component {
       totalHeight,
     } = this.state;
 
-    const style = {
-      height: totalHeight - height,
-    };
-
     const renderedSlides = renderSlides(this.state, slides);
 
     const slideContainerStyle = {
-      height: totalHeight - height,
+      height: totalHeight + height,
     };
 
     return (
-      <div className="Home" style={style}>
+      <div className="Home">
         <div className="Home-intro">
           <div className="Home-description-container">
             <div className="Home-description">

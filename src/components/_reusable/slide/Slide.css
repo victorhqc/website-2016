@@ -1,6 +1,7 @@
 .Slide {
   width: 100%;
   position: absolute;
+  top: 100%;
 
   background-color: transparent;
   color: white;
