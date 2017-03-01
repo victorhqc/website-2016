@@ -11,17 +11,13 @@ const easeInOutCubic = (value) => {
 export const calculateBlur = (props) => {
   const {
     nextTransform,
-    isApplicableTransform,
-    scrollY,
     halfHeight,
-    zIndex,
+    scroll,
   } = props;
 
-  if (isApplicableTransform) {
+  if (scroll >= halfHeight) {
     return 'blur(10px)';
   }
-
-  const scroll = scrollY - (halfHeight * (zIndex - 1));
 
   if (scroll < 0) {
     return '';

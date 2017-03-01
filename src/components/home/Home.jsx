@@ -20,6 +20,35 @@ const slides = [
   <Slide1 />,
 ];
 
+const calculateStyle = ({
+  zIndex,
+  height,
+  halfHeight,
+  nextTransform,
+  scroll,
+}) => {
+  if (scroll <= 0) {
+    return {
+      display: 'none',
+    };
+  }
+
+  if (scroll >= halfHeight) {
+    return {
+      height,
+      zIndex,
+      position: 'fixed',
+      top: 0,
+    };
+  }
+
+  return {
+    height,
+    zIndex,
+    transform: `translate3d(0, ${nextTransform}px, 0)`,
+  };
+};
+
 const renderSlides = (state) => {
   const {
     height,
@@ -34,23 +63,13 @@ const renderSlides = (state) => {
     const nextTransform = (totalHeight - (height * index)) - scrollY;
     const scroll = scrollY - (halfHeight * (zIndex - 1));
 
-    if (scroll < 0) {
-      return visible;
-    }
-
-    const isApplicableTransform = scroll > halfHeight;
-    const style = isApplicableTransform
-      ? {
-        height,
-        zIndex,
-        position: 'fixed',
-        top: 0,
-      }
-      : {
-        height,
-        zIndex,
-        transform: `translate3d(0, ${nextTransform}px, 0)`,
-      };
+    const style = calculateStyle({
+      zIndex,
+      height,
+      halfHeight,
+      nextTransform,
+      scroll,
+    });
 
     return [
       ...visible,
@@ -59,11 +78,9 @@ const renderSlides = (state) => {
         {
           key: `slide-${index}`,
           style,
-          nextTransform: !isApplicableTransform ? nextTransform : halfHeight,
-          isApplicableTransform,
-          scrollY,
+          nextTransform,
           halfHeight,
-          zIndex,
+          scroll,
         },
       ),
     ];
@@ -164,7 +181,7 @@ export default class Home extends Component {
               <div className="Home-body">
                 <h1>
                   Some Generic page <br />
-                  {/* Victor Quiroz Castro <br /> */}
+                  {/* Victor Hugo Quiroz Castro <br /> */}
                   <small>
                     Some generic subtitle
                     {/* FullStack JavaScript  Developer */}
