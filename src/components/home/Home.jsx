@@ -54,9 +54,11 @@ const renderSlides = (state) => {
         {
           key: `slide-${index}`,
           style,
-          nextTransform,
+          nextTransform: !isApplicableTransform ? nextTransform : halfHeight,
           isApplicableTransform,
           scrollY,
+          halfHeight,
+          zIndex,
         },
       ),
     ];

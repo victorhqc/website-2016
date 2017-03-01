@@ -12,6 +12,7 @@
   position: relative;
   margin: 0;
   display: inline-block;
+  overflow: hidden;
 }
 
 
@@ -22,6 +23,8 @@
   top: 0;
   z-index: -1;
 
+  overflow: hidden;
+  transform: scale(1.2);
   background-size: cover;
   background-position: center;
 }
