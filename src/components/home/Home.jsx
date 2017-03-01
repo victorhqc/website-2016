@@ -32,8 +32,13 @@ const renderSlides = (state) => {
   return slides.reduce((visible, slide, index) => {
     const zIndex = slides.length - index;
     const nextTransform = (totalHeight - (height * index)) - scrollY;
+    const scroll = scrollY - (halfHeight * (zIndex - 1));
 
-    const isApplicableTransform = nextTransform / zIndex < halfHeight;
+    if (scroll < 0) {
+      return visible;
+    }
+
+    const isApplicableTransform = scroll > halfHeight;
     const style = isApplicableTransform
       ? {
         height,
