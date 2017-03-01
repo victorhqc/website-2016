@@ -85,8 +85,6 @@ export const renderSlides = (state, slides) => {
     scrollY,
   } = state;
 
-  const halfHeight = height / 2;
-
   return slides.reduce((visible, slide, index) => {
     const zIndex = slides.length - index;
     const nextTransform = height * (zIndex - 1);
@@ -97,7 +95,6 @@ export const renderSlides = (state, slides) => {
     const style = calculateStyle({
       zIndex,
       height,
-      halfHeight,
       nextTransform,
       scroll,
     });
@@ -110,7 +107,6 @@ export const renderSlides = (state, slides) => {
           key: `slide-${index}`,
           style,
           nextTransform,
-          halfHeight,
           scroll,
           zIndex,
           ...state,
