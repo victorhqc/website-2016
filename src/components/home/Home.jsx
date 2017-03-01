@@ -97,7 +97,7 @@ export default class Home extends Component {
     } = this.state;
 
     const style = {
-      height,
+      height: totalHeight - height,
     };
 
     const renderedSlides = renderSlides(this.state, slides);
