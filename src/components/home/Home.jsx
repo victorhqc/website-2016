@@ -5,6 +5,10 @@ import Slide1 from './children/slide1';
 import Slide2 from './children/slide2';
 import Slide3 from './children/slide3';
 
+import {
+  renderSlides,
+} from './helpers';
+
 const animationFrame = callback => setTimeout(callback, 1000 / 60);
 
 const requestAnimFrame = () =>
@@ -19,73 +23,6 @@ const slides = [
   <Slide2 />,
   <Slide1 />,
 ];
-
-const calculateStyle = ({
-  zIndex,
-  height,
-  halfHeight,
-  nextTransform,
-  scroll,
-}) => {
-  if (scroll <= 0) {
-    return {
-      display: 'none',
-    };
-  }
-
-  if (scroll >= halfHeight) {
-    return {
-      height,
-      zIndex,
-      position: 'fixed',
-      top: 0,
-    };
-  }
-
-  return {
-    height,
-    zIndex,
-    transform: `translate3d(0, ${nextTransform}px, 0)`,
-  };
-};
-
-const renderSlides = (state) => {
-  const {
-    height,
-    totalHeight,
-    scrollY,
-  } = state;
-
-  const halfHeight = height / 2;
-
-  return slides.reduce((visible, slide, index) => {
-    const zIndex = slides.length - index;
-    const nextTransform = (totalHeight - (height * index)) - scrollY;
-    const scroll = scrollY - (halfHeight * (zIndex - 1));
-
-    const style = calculateStyle({
-      zIndex,
-      height,
-      halfHeight,
-      nextTransform,
-      scroll,
-    });
-
-    return [
-      ...visible,
-      React.cloneElement(
-        slide,
-        {
-          key: `slide-${index}`,
-          style,
-          nextTransform,
-          halfHeight,
-          scroll,
-        },
-      ),
-    ];
-  }, []);
-};
 
 export default class Home extends Component {
 
@@ -163,7 +100,7 @@ export default class Home extends Component {
       height,
     };
 
-    const renderedSlides = renderSlides(this.state);
+    const renderedSlides = renderSlides(this.state, slides);
 
     const slideContainerStyle = {
       height: totalHeight - height,
