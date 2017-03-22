@@ -10,8 +10,13 @@ import {
 } from '../_reusable/slide/helpers';
 
 import background1 from './assets/IMG_20170209_153230.jpg';
+import background1Blur from './assets/IMG_20170209_153230_blur.jpg';
+
 import background2 from './assets/IMG_20170212_125335.jpg';
+import background2Blur from './assets/IMG_20170212_125335_blur.jpg';
+
 import background3 from './assets/IMG_20161204_151738.jpg';
+import background3Blur from './assets/IMG_20161204_151738_blur.jpg';
 
 const animationFrame = callback => setTimeout(callback, 1000 / 60);
 
@@ -23,9 +28,9 @@ const requestAnimFrame = () =>
   animationFrame;
 
 const slides = [
-  <Slide3 backgroundImage={background3} />,
-  <Slide2 backgroundImage={background2} />,
-  <Slide1 backgroundImage={background1} />,
+  <Slide3 backgroundImage={background3} blurredImage={background3Blur} />,
+  <Slide2 backgroundImage={background2} blurredImage={background2Blur} />,
+  <Slide1 backgroundImage={background1} blurredImage={background1Blur} />,
 ];
 
 export default class Home extends Component {

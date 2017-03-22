@@ -51,6 +51,31 @@ export const calculateBlur = (props) => {
   return `blur(${easedValue * 20}px)`;
 };
 
+export const calculateOpacityBlur = (props) => {
+  const {
+    height,
+    scroll,
+  } = props;
+
+  if (scroll >= height) {
+    return 1;
+  }
+
+  if (scroll <= 0) {
+    return 0;
+  }
+
+  const linearCalculation = (scroll / height);
+
+  if (linearCalculation < 0) {
+    return 0;
+  }
+
+  const easedValue = easeInOutCubic(linearCalculation);
+
+  return easedValue;
+};
+
 
 export const calculateStyle = ({
   zIndex,

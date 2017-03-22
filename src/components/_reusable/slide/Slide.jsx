@@ -4,6 +4,7 @@ import './Slide.css';
 
 import {
   calculateBlur,
+  calculateOpacityBlur,
 } from './helpers';
 
 const renderChildren = (children) => {
@@ -34,6 +35,46 @@ const renderBlurBackground = (properties) => {
   );
 };
 
+const renderOpacityBackground = (properties) => {
+  const {
+    backgroundImage,
+    blurredImage,
+  } = properties;
+
+  const opacity = calculateOpacityBlur({ ...properties });
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+  };
+
+  const blurredBackgroundStyle = {
+    backgroundImage: `url(${blurredImage})`,
+    opacity,
+  };
+
+  return (
+    <div>
+      <div className="slideBackground" style={backgroundStyle} />
+      <div className="slideBackground blurred" style={blurredBackgroundStyle} />
+    </div>
+  );
+};
+
+const alwaysBlurBackgrond = (properties) => {
+  const {
+    blurredImage,
+  } = properties;
+
+  const blurredBackgroundStyle = {
+    backgroundImage: `url(${blurredImage})`,
+  };
+
+  return (
+    <div>
+      <div className="slideBackground blurred" style={blurredBackgroundStyle} />
+    </div>
+  );
+};
+
 export default class Slide extends Component {
 
   constructor(props) {
@@ -45,6 +86,8 @@ export default class Slide extends Component {
   renderBackground(transitionEffect) {
     switch (transitionEffect) {
       case 'blur': return renderBlurBackground(this.props);
+      case 'opacity': return renderOpacityBackground(this.props);
+      case 'mobil': return alwaysBlurBackgrond(this.props);
       default: return null;
     }
   }
@@ -75,6 +118,7 @@ Slide.defaultProps = {
 Slide.propTypes = {
   style: PropTypes.object,
   backgroundImage: PropTypes.string,
+  blurredImage: PropTypes.string,
   transitionEffect: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.object,
