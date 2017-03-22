@@ -87,7 +87,7 @@ export default class Slide extends Component {
     switch (transitionEffect) {
       case 'blur': return renderBlurBackground(this.props);
       case 'opacity': return renderOpacityBackground(this.props);
-      case 'mobil': return alwaysBlurBackgrond(this.props);
+      case 'mobile': return alwaysBlurBackgrond(this.props);
       default: return null;
     }
   }
