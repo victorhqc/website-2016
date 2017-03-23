@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import usedBrowser from 'detect-browser';
+
 import './Home.css';
 
 import Slide1 from './children/slide1';
@@ -27,10 +29,34 @@ const requestAnimFrame = () =>
   window.msRequestAnimationFrame ||
   animationFrame;
 
+const getBlurEffect = (browser) => {
+  switch (browser.name) {
+    case 'chrome': return 'blur';
+    default: return 'opacity';
+  }
+};
+
+const effect = getBlurEffect(usedBrowser);
+
 const slides = [
-  <Slide3 backgroundImage={background3} blurredImage={background3Blur} />,
-  <Slide2 backgroundImage={background2} blurredImage={background2Blur} />,
-  <Slide1 backgroundImage={background1} blurredImage={background1Blur} />,
+  <Slide3
+    id="slide3"
+    backgroundImage={background3}
+    blurredImage={background3Blur}
+    transitionEffect={effect}
+  />,
+  <Slide2
+    id="slide2"
+    backgroundImage={background2}
+    blurredImage={background2Blur}
+    transitionEffect={effect}
+  />,
+  <Slide1
+    id="slide1"
+    backgroundImage={background1}
+    blurredImage={background1Blur}
+    transitionEffect={effect}
+  />,
 ];
 
 export default class Home extends Component {
@@ -49,33 +75,18 @@ export default class Home extends Component {
     this.updateElements = this.updateElements.bind(this);
   }
 
-  componentDidMount() {
-    this.adjustSize();
-  }
-
   componentWillMount() {
     window.addEventListener('resize', this.adjustSize);
     window.addEventListener('scroll', this.onScroll, false);
   }
 
+  componentDidMount() {
+    this.adjustSize();
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.adjustSize);
     window.removeEventListener('scroll');
-  }
-
-  adjustSize() {
-    const height = window.innerHeight;
-
-    this.setState({
-      height,
-      totalHeight: typeof height === 'number' ? (slides.length * height) : 0,
-    });
-  }
-
-  updateElements() {
-    this.setState({
-      ticking: false,
-    });
   }
 
   onScroll() {
@@ -97,6 +108,21 @@ export default class Home extends Component {
     });
 
     requestAnimFrame(this.updateElements());
+  }
+
+  updateElements() {
+    this.setState({
+      ticking: false,
+    });
+  }
+
+  adjustSize() {
+    const height = window.innerHeight;
+
+    this.setState({
+      height,
+      totalHeight: typeof height === 'number' ? (slides.length * height) : 0,
+    });
   }
 
   render() {

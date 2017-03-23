@@ -129,7 +129,7 @@ export const renderSlides = (state, slides) => {
       React.cloneElement(
         slide,
         {
-          key: `slide-${index}`,
+          key: `slide-${slide.props.id}`,
           style,
           nextTransform,
           scroll,

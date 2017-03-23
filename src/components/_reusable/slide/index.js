@@ -1,3 +1,3 @@
-import Slide from './Slide.jsx';
+import Slide from './Slide';
 
 export default Slide;

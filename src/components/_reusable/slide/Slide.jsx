@@ -10,12 +10,9 @@ import {
 const renderChildren = (children) => {
   const parsedChildren = Array.isArray(children) ? children : [children];
 
-  return parsedChildren.reduce((accumulated, child, index) =>
+  return parsedChildren.reduce((accumulated, child) =>
     React.cloneElement(
       child,
-      {
-        key: `slide-children-${index}`,
-      },
     ), []);
 };
 
@@ -116,7 +113,15 @@ Slide.defaultProps = {
 };
 
 Slide.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.shape({
+    zIndex: PropTypes.number,
+    height: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    nextTransform: PropTypes.number,
+    scroll: PropTypes.number,
+  }),
   backgroundImage: PropTypes.string,
   blurredImage: PropTypes.string,
   transitionEffect: PropTypes.string,

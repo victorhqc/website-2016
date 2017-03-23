@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import './App.css';
 
-class App extends Component {
+class App extends PureComponent {
 
   render() {
     const { children } = this.props;
@@ -23,6 +23,10 @@ App.propTypes = {
     PropTypes.object,
     PropTypes.array,
   ]),
+};
+
+App.defaultProps = {
+  children: {},
 };
 
 export default App;

@@ -26,7 +26,7 @@ const rootEl = document.getElementById('root');
 
 render(
   <AppContainer>
-    <Root store={store} history={history}/>
+    <Root store={store} history={history} />
   </AppContainer>,
   rootEl,
 );
@@ -36,7 +36,7 @@ if (module.hot) {
     const NextRoot = require('./containers/root').default;
     render(
       <AppContainer>
-        <NextRoot store={store} history={history}/>
+        <NextRoot store={store} history={history} />
       </AppContainer>,
       rootEl,
     );
