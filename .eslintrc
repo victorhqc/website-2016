@@ -1,10 +1,5 @@
 {
-  "plugins": ["react"],
-  "extends": [
-  "airbnb-base",
-  "plugin:react/recommended",
-  "plugin:import/errors"
-  ],
+  "extends": "airbnb",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -26,7 +21,10 @@
         "componentDidUpdate",
         "componentWillUnmount",
       ],
-    }]
+    }],
+    "react/prefer-stateless-function": [ 2, {
+      "ignorePureComponents": true
+    }],
   },
   "env": {
     "browser": true,
